@@ -1,0 +1,15 @@
+# Go Files
+go.sum
+go.mod
+vendor
+
+# Config File
+.env
+.*.env
+
+# Build result file
+*.exe
+
+# Git / Code Editor File
+.vscode
+.DS_Store
