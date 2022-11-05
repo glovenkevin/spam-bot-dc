@@ -30,12 +30,12 @@ func (c *CoreLogger) Infof(s string, mm ...interface{}) {
 	c.infoLog.Output(2, fmt.Sprintf(s, mm...))
 }
 func (c *CoreLogger) Debug(mm ...interface{}) {
-	if c.level >= LevelDebug {
+	if c.level <= LevelDebug {
 		c.debugLog.Output(2, fmt.Sprintln(mm...))
 	}
 }
 func (c *CoreLogger) Debugf(s string, mm ...interface{}) {
-	if c.level >= LevelDebug {
+	if c.level <= LevelDebug {
 		c.debugLog.Output(2, fmt.Sprintf(s, mm...))
 	}
 }
