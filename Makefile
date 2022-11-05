@@ -16,3 +16,6 @@ tidy:
 
 run:
 	ENV=local $(GORUN) main.go
+
+build:
+	$(GOCMD) build -o ./app main.go

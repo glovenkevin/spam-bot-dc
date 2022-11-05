@@ -1,0 +1,7 @@
+.env
+.env.example
+LICENSE
+README.md
+Makefile
+go.mod
+go.sum
