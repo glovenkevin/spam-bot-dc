@@ -74,7 +74,10 @@ func (c *CommandService) RegisterHandlers() (error, func()) {
 			c.log.Errorf("Command is Not Found: %s", commandName)
 			return
 		}
-		h(s, i)
+
+		// h(s, i)
+		c.errorMiddleware(h)(s, i)
+		// c.errorMiddleware(c.errorMiddleware(h))(s, i) // chaining example
 
 		c.log.Debugf("Success execute Interaction ID: %s", i.ID)
 	})
