@@ -2,8 +2,11 @@ package command
 
 import (
 	"discord-spam-bot/domain/model"
+	"discord-spam-bot/domain/repo"
+	amythest_http "discord-spam-bot/domain/repo/amythest/http"
 	"discord-spam-bot/lib/constant"
 	"discord-spam-bot/lib/pkg/loggerext"
+	"net/http"
 	"os"
 	"sync"
 
@@ -12,14 +15,18 @@ import (
 )
 
 type CommandService struct {
-	dc  *discordgo.Session
-	log loggerext.LoggerInterface
+	dc           *discordgo.Session
+	log          loggerext.LoggerInterface
+	amythestRepo repo.AmythestRepoInterface
 }
 
 func NewCommandService(dc *discordgo.Session, l loggerext.LoggerInterface) *CommandService {
+	http := &http.Client{}
+
 	return &CommandService{
-		dc:  dc,
-		log: l,
+		dc:           dc,
+		log:          l,
+		amythestRepo: amythest_http.NewAmythestRepoHttp(l, http),
 	}
 }
 
@@ -27,6 +34,7 @@ func (c *CommandService) getCommandItems() []*model.CommandNameHandlerParam {
 	return []*model.CommandNameHandlerParam{
 		c.basicCommand(),
 		c.spamMessage(),
+		c.generateAmythestWantedImage(),
 	}
 }
 
