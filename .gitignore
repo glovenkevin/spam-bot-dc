@@ -1,6 +1,5 @@
 # Go Files
 go.sum
-go.mod
 vendor
 
 # Config File

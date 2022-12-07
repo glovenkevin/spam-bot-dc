@@ -2,7 +2,7 @@ FROM golang:1.18-alpine AS builder
 WORKDIR /build
 COPY . .
 
-RUN go mod init discord-spam-bot && go mod tidy
+RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -o /tmp/build/discord-spam-bot main.go
 
 FROM alpine:3.16
