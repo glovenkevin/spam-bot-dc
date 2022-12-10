@@ -1,5 +1,8 @@
 package amythest_http
 
 const (
-	generateWantedURI = "/generate/wanted"
+	baseGenerate = "/generate"
+
+	generateWantedURI = baseGenerate + "/wanted"
+	generateCircleURI = baseGenerate + "/circle"
 )
