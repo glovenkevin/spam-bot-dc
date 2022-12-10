@@ -35,6 +35,7 @@ func (c *CommandService) getCommandItems() []*model.CommandNameHandlerParam {
 		c.basicCommand(),
 		c.spamMessage(),
 		c.generateAmythestWantedImage(),
+		c.generateAmythestCircleImage(),
 	}
 }
 
