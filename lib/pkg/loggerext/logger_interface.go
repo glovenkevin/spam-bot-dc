@@ -1,4 +1,4 @@
-package logger
+package loggerext
 
 type LoggerInterface interface {
 	Info(mm ...interface{})
