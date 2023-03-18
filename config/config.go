@@ -2,13 +2,13 @@ package config
 
 import (
 	"discord-spam-bot/lib/constant"
-	"discord-spam-bot/lib/pkg/logger"
+	"discord-spam-bot/lib/pkg/loggerext"
 	"fmt"
 	"os"
 	"strings"
 )
 
-func LoadConfig(l logger.LoggerInterface) error {
+func LoadConfigEnv(l loggerext.LoggerInterface) error {
 	envFile := ".env"
 	env := os.Getenv(constant.AppEnv)
 	if env != "" && env != "local" {

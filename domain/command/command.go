@@ -3,7 +3,7 @@ package command
 import (
 	"discord-spam-bot/domain/model"
 	"discord-spam-bot/lib/constant"
-	"discord-spam-bot/lib/pkg/logger"
+	"discord-spam-bot/lib/pkg/loggerext"
 	"os"
 	"sync"
 
@@ -13,10 +13,10 @@ import (
 
 type CommandService struct {
 	dc  *discordgo.Session
-	log logger.LoggerInterface
+	log loggerext.LoggerInterface
 }
 
-func NewCommandService(dc *discordgo.Session, l logger.LoggerInterface) *CommandService {
+func NewCommandService(dc *discordgo.Session, l loggerext.LoggerInterface) *CommandService {
 	return &CommandService{
 		dc:  dc,
 		log: l,
@@ -92,6 +92,7 @@ func (c *CommandService) RegisterHandlers() (error, func()) {
 			}(ci.Command)
 		}
 		wg.Wait()
+		c.dc.Close()
 	}
 	return nil, td
 }

@@ -1,36 +1,18 @@
 package main
 
 import (
-	"discord-spam-bot/config"
-	"discord-spam-bot/domain/command"
-	"os"
-	"os/signal"
-	"syscall"
+	"discord-spam-bot/application"
+	"log"
 )
 
 func main() {
-	l := config.NewLogger()
-	err := config.LoadConfig(l)
+	app, err := application.Setup()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	dc, err := config.NewDiscordInstance(l)
+	err = app.Run()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	defer dc.Close()
-
-	c := command.NewCommandService(dc, l)
-	err, td := c.RegisterHandlers()
-	if err != nil {
-		panic(err)
-	}
-	defer td()
-
-	l.Info("Bot started...")
-	s := make(chan os.Signal, 1)
-	defer close(s)
-	signal.Notify(s, syscall.SIGTERM, syscall.SIGINT)
-	<-s
 }

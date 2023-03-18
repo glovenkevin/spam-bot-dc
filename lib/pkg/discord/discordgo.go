@@ -1,25 +1,15 @@
-package config
+package discord
 
 import (
 	"discord-spam-bot/lib/constant"
-	"discord-spam-bot/lib/pkg/logger"
-	coreLogger "discord-spam-bot/lib/pkg/logger/core"
+	"discord-spam-bot/lib/pkg/loggerext"
 	"fmt"
 	"os"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func NewLogger() logger.LoggerInterface {
-	env := os.Getenv(constant.AppEnv)
-	if env == "local" {
-		return coreLogger.NewCoreLogger(coreLogger.LevelDebug)
-	}
-
-	return coreLogger.NewCoreLogger(coreLogger.LevelInfo)
-}
-
-func NewDiscordInstance(l logger.LoggerInterface) (*discordgo.Session, error) {
+func NewDiscordgoInstance(l loggerext.LoggerInterface) (*discordgo.Session, error) {
 	token := os.Getenv(constant.DiscordToken)
 	dc, err := discordgo.New(fmt.Sprintf("Bot %s", token))
 	if err != nil {
